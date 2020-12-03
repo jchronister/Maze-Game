@@ -10,7 +10,6 @@ const game = {
     initalize: function () {
         this.start.onclick = () => { game.startGame(); };
         this.start.style.cursor = "pointer";
-        // this.end.style.cursor = this.pointer
     },
     startGame: function () {
         // Disable Start
@@ -21,9 +20,8 @@ const game = {
         game.status.classList.remove("win");
         // Setup Boundary Limits
         this.outBounds.forEach((n) => {
-            let e = n;
-            e.classList.remove("youlose");
-            e.onmouseenter = this.outOfBounds;
+            n.classList.remove("youlose");
+            n.onmouseenter = this.outOfBounds;
         });
         // Area Outside Maze
         this.maze.onmouseleave = this.outOfBounds;
@@ -41,32 +39,30 @@ const game = {
         game.status.innerText = "Winner in " + time + "ms, Congratulations. Click Start to Play Again!";
         game.status.classList.add("win");
         // Remove Event Handlers
-        game.removeOutOfBoundsEventHandlers(false);
-        game.end.onmouseenter = null;
-        game.initalize();
+        game.endGame(false);
     },
     outOfBounds: function (e) {
         // Out of Bounds Turns Red & Remove Event Handlers
-        game.removeOutOfBoundsEventHandlers(true);
-        game.end.onmouseenter = null;
+        game.endGame(true);
         // Click the "Start Over" to begin!
         game.status.innerText = "Sorry, Out of Bounds. Click Start to Try Again!";
-        game.initalize();
     },
-    removeOutOfBoundsEventHandlers: function (lose) {
+    endGame: function (lose) {
         // Out of Bounds in Maze
         game.outBounds.forEach((n) => {
-            let e = n;
             // Out of Bounds Turns Red
-            if (lose)
-                e.classList.add("youlose");
+            if (lose) {
+                n.classList.add("youlose");
+            }
             // Clear Event Handlers
-            e.onmouseenter = null;
+            n.onmouseenter = null;
         });
         // Area Outside Maze
         game.maze.onmouseleave = null;
+        game.end.onmouseenter = null;
         // Reset Pointer
         game.maze.style.cursor = game.pointer;
+        game.initalize();
     },
 };
 game.initalize();

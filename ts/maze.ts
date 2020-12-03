@@ -11,7 +11,7 @@ interface gameInfo {
   win: () => void
   outOfBounds: (e: Event) => void
   startGame: () => void
-  removeOutOfBoundsEventHandlers: (l: boolean) => void
+  endGame: (l: boolean) => void
 
 }
 
@@ -28,7 +28,6 @@ const game : gameInfo = {
   initalize: function () {
     this.start.onclick = () => {game.startGame()}
     this.start.style.cursor = "pointer"
-    // this.end.style.cursor = this.pointer
   },
 
   startGame: function () {
@@ -46,9 +45,8 @@ const game : gameInfo = {
     this.outBounds.forEach(
       
       (n: Node) : void => {
-        let e = <HTMLElement> n
-        e.classList.remove("youlose")
-        e.onmouseenter = this.outOfBounds
+        (n as HTMLElement).classList.remove("youlose");
+        (n as HTMLElement).onmouseenter = this.outOfBounds;
       }
     
     )
@@ -75,46 +73,42 @@ const game : gameInfo = {
     game.status.classList.add("win")  
 
     // Remove Event Handlers
-    game.removeOutOfBoundsEventHandlers(false)
-    game.end.onmouseenter = null
-    game.initalize()
+    game.endGame(false)
 
   },
 
   outOfBounds: function (e) {
 
     // Out of Bounds Turns Red & Remove Event Handlers
-    game.removeOutOfBoundsEventHandlers(true)
-    game.end.onmouseenter = null
-
+    game.endGame(true)
+    
     // Click the "Start Over" to begin!
     game.status.innerText = "Sorry, Out of Bounds. Click Start to Try Again!"
-    game.initalize()
 
   },
 
-  removeOutOfBoundsEventHandlers: function (lose: boolean) {
+  endGame: function (lose: boolean) {
 
     // Out of Bounds in Maze
     game.outBounds.forEach((n: Node) => {
 
-        let e = <HTMLElement> n
-
         // Out of Bounds Turns Red
-        if (lose) e.classList.add("youlose")
+        if (lose) {(n as HTMLElement).classList.add("youlose");}
 
         // Clear Event Handlers
-        e.onmouseenter = null
+        (n as HTMLElement).onmouseenter = null;
       }
       
     )  
  
     // Area Outside Maze
     game.maze.onmouseleave = null
+    game.end.onmouseenter = null
 
     // Reset Pointer
     game.maze.style.cursor = game.pointer
 
+    game.initalize()
   },
 
 }
