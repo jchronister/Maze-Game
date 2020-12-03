@@ -25,12 +25,14 @@ const game = {
             e.classList.remove("youlose");
             e.onmouseenter = this.outOfBounds;
         });
+        // Area Outside Maze
         this.maze.onmouseleave = this.outOfBounds;
         // Setup Win
         this.end.onmouseenter = this.win;
-        // Set Cursor
+        // Set Cursor Style
         this.start.style.cursor = "crosshair";
         this.maze.style.cursor = "crosshair";
+        // Time
         this.startTime = Date.now();
     },
     win: function () {
@@ -46,12 +48,13 @@ const game = {
     outOfBounds: function (e) {
         // Out of Bounds Turns Red & Remove Event Handlers
         game.removeOutOfBoundsEventHandlers(true);
+        game.end.onmouseenter = null;
         // Click the "Start Over" to begin!
         game.status.innerText = "Sorry, Out of Bounds. Click Start to Try Again!";
         game.initalize();
-        game.end.onmouseenter = null;
     },
     removeOutOfBoundsEventHandlers: function (lose) {
+        // Out of Bounds in Maze
         game.outBounds.forEach((n) => {
             let e = n;
             // Out of Bounds Turns Red
@@ -60,11 +63,10 @@ const game = {
             // Clear Event Handlers
             e.onmouseenter = null;
         });
+        // Area Outside Maze
         game.maze.onmouseleave = null;
         // Reset Pointer
         game.maze.style.cursor = game.pointer;
     },
-    reset: function () {
-    }
 };
 game.initalize();
