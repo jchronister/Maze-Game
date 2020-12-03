@@ -22,7 +22,7 @@ p {
 	border: 1px solid black;
 	padding: 5px;
 	cursor: default;
-	
+	user-select: none;
 	font-family: "Helvetica", "Arial", sans-serif;
 	font-size: 25pt;
 	text-align: center;
@@ -95,3 +95,15 @@ div.youlose {
 	height: 150px;
 	width: 98px;
 }
+
+.win {
+  color:red;
+}
+
+.playing:hover {
+  cursor: "crosshair"
+}
+
+/* #start:hover {
+  cursor: pointer;
+} */
