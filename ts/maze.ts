@@ -22,7 +22,7 @@ const game : gameInfo = {
   outBounds: <NodeList> document.querySelectorAll(".boundary"),
   maze: <HTMLElement> document.getElementById("maze"),
   status: <HTMLElement> document.getElementById("status"),
-  pointer: document.body.style.cursor,
+  pointer: document.body.style.cursor, 
   startTime: 0,
 
   initalize: function () {
@@ -40,6 +40,7 @@ const game : gameInfo = {
 
     // Reset Colors 
     game.status.classList.remove("win")
+    game.maze.classList.remove("youWin") 
 
     // Setup Boundary Limits
     this.outBounds.forEach(
@@ -70,8 +71,9 @@ const game : gameInfo = {
     // Winner Click the "Start" to begin!
     let time = Date.now() - game.startTime
     game.status.innerText = "Winner in " + time + "ms, Congratulations. Click Start to Play Again!"
-    game.status.classList.add("win")  
-
+    game.status.classList.add("win") 
+    game.maze.classList.add("youWin") 
+    
     // Remove Event Handlers
     game.endGame(false)
 

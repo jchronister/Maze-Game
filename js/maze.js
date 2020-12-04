@@ -18,6 +18,7 @@ const game = {
         this.status.innerText = "Game Started, Guide Crosshair to End";
         // Reset Colors 
         game.status.classList.remove("win");
+        game.maze.classList.remove("youWin");
         // Setup Boundary Limits
         this.outBounds.forEach((n) => {
             n.classList.remove("youlose");
@@ -38,6 +39,7 @@ const game = {
         let time = Date.now() - game.startTime;
         game.status.innerText = "Winner in " + time + "ms, Congratulations. Click Start to Play Again!";
         game.status.classList.add("win");
+        game.maze.classList.add("youWin");
         // Remove Event Handlers
         game.endGame(false);
     },

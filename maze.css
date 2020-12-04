@@ -107,3 +107,8 @@ div.youlose {
 /* #start:hover {
   cursor: pointer;
 } */
+
+
+div.youWin {
+	background-color: green;
+}
